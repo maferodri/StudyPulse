@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="StudyPulse.API/StudyPulse.API.csproj" />
+  <Project Path="StudyPulse.Application/StudyPulse.Application.csproj" />
+  <Project Path="StudyPulse.Domain/StudyPulse.Domain.csproj" />
+  <Project Path="StudyPulse.Infrastructure/StudyPulse.Infrastructure.csproj" />
+</Solution>
