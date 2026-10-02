@@ -1,6 +1,11 @@
-@StudyPulse.API_HostAddress = http://localhost:5086
-
-GET {{StudyPulse.API_HostAddress}}/weatherforecast/
+GET http://localhost:5086/api/Study
 Accept: application/json
 
 ###
+
+POST http://localhost:5086/api/Study
+Content-Type: application/json
+
+{
+  "nombre": "Diseño Digital"
+}
