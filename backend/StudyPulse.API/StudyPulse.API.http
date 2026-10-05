@@ -9,3 +9,21 @@ Content-Type: application/json
 {
   "nombre": "Diseño Digital"
 }
+
+###
+
+GET http://localhost:5086/api/Study/1
+Content-Type: application/json
+
+###
+
+PUT http://localhost:5086/api/Study/1
+Content-Type: application/json
+
+{
+  "nombre": "Sistemas Expertos"
+}
+
+###
+
+DELETE http://localhost:5086/api/Study/5

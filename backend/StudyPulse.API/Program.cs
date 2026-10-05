@@ -9,6 +9,7 @@ Env.Load();
 var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__PostgresConnection")
                        ?? throw new InvalidOperationException("Falta la cadena de conexión");
 
+//Son los archivos creados en DependencyInjection.cs
 builder.Services.AddInfrastructure(connectionString);
 builder.Services.AddControllers();
 builder.Services.AddApplication();

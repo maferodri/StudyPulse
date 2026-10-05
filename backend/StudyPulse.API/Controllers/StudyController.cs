@@ -10,14 +10,20 @@ namespace StudyPulse.API.Controllers;
 [Route("api/[controller]")]
 public class StudyController: ControllerBase {
     private readonly IStudyRepository _repository;
-    private readonly IValidator<CreateStudyRequestDto> _validator;
+    private readonly IValidator<CreateStudyRequestDto> _createValidator;
+    private readonly IValidator<UpdateStudyRequestDto> _updateValidator;
     
-    public StudyController(IStudyRepository repository, IValidator<CreateStudyRequestDto> validator)
+    public StudyController(
+        IStudyRepository repository, 
+        IValidator<CreateStudyRequestDto> createValidator,
+        IValidator<UpdateStudyRequestDto> updateValidator)
     {
         _repository = repository;
-        _validator = validator;
+        _createValidator = createValidator;
+        _updateValidator =  updateValidator;
     }
 
+    //Lista de todos los elementos 
     [HttpGet]
     public async Task<IActionResult> GetStudies()
     {
@@ -34,10 +40,31 @@ public class StudyController: ControllerBase {
         return Ok(response); 
     }
     
+    //Obtener elemento por ID
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetStudiesById(int id)
+    {
+        var studies = await _repository.GetByIdAsync(id);
+
+        if (studies == null)
+        {
+            return NotFound(new { mensaje = $"No se encontró el estudio con el ID {id}" });
+        }
+
+        var response = new StudyResponseDto
+        {
+            Id = studies.Id,
+            Nombre = studies.Nombre
+        };
+        
+        return Ok(response);
+    }
+    
+    //Agregar un elemento nuevo
     [HttpPost]
     public async Task<IActionResult> CrearStudy([FromBody] CreateStudyRequestDto request)
     {
-        var validationResult = await _validator.ValidateAsync(request);
+        var validationResult = await _createValidator.ValidateAsync(request);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors);
@@ -59,5 +86,44 @@ public class StudyController: ControllerBase {
         
         // CORRECCIÓN 2: Pasas 'response' como el objeto que se devolverá al cliente
         return CreatedAtAction(nameof(GetStudies), new { id = studyCreado.Id }, response);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateStudy(int id, [FromBody] UpdateStudyRequestDto request)
+    {
+        var validationResult = await _updateValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+        
+        var studies = await _repository.GetByIdAsync(id);
+        if (studies == null)
+        {
+            return NotFound(new { mensaje = $"No se encontró el estudio con el ID {id}" });
+        }
+
+        if (studies.Nombre == request.Nombre)
+        {
+            return BadRequest(new {mensaje = "El nuevo nombre no puede ser idéntico al nombre actual"});
+        }
+        
+        studies.Nombre = request.Nombre;
+        
+        await _repository.UpdateAsync(studies);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteStudy(int id)
+    {
+        var studies = await _repository.GetByIdAsync(id);
+        if (studies == null)
+        {
+            return NotFound(new { mensaje = $"No se encontró el estudio con el ID {id}" });
+        }
+        
+        await _repository.DeleteAsync(studies);
+        return NoContent();
     }
 }

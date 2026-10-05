@@ -24,5 +24,23 @@ public class StudyRepository: IStudyRepository {
         await _context.SaveChangesAsync();
         return study;
     }
+
+    public async Task<StudyGlobal?> GetByIdAsync(int id)
+    {
+        return await _context.StudyGlobales.FindAsync(id);
+    }
+
+    public async Task<StudyGlobal> UpdateAsync(StudyGlobal study)
+    {
+        _context.StudyGlobales.Update(study);
+        await _context.SaveChangesAsync();
+        return study;
+    }
+
+    public Task DeleteAsync(StudyGlobal study)
+    {
+        _context.StudyGlobales.Remove(study);
+        return _context.SaveChangesAsync();
+    }
 }
 
