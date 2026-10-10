@@ -1,3 +1,5 @@
+#CRUD STUDYGLOBAL
+
 GET http://localhost:5086/api/Study
 Accept: application/json
 
@@ -7,23 +9,93 @@ POST http://localhost:5086/api/Study
 Content-Type: application/json
 
 {
-  "nombre": "Diseño Digital"
+  "nombre": "Prueba"
 }
 
 ###
 
-GET http://localhost:5086/api/Study/1
-Content-Type: application/json
+GET http://localhost:5086/api/Study/8
+Accept: application/json
 
 ###
 
-PUT http://localhost:5086/api/Study/1
+PUT http://localhost:5086/api/Study/9
 Content-Type: application/json
 
 {
-  "nombre": "Sistemas Expertos"
+  "nombre": "Prueba con PUt"
 }
 
 ###
 
-DELETE http://localhost:5086/api/Study/5
+DELETE http://localhost:5086/api/Study/1
+
+###CRUD STUDYSTATUS
+
+GET http://localhost:5086/api/StudyStatus
+Accept: application/json
+
+###
+
+GET http://localhost:5086/api/StudyStatus/2
+Accept: application/json
+
+###
+
+POST http://localhost:5086/api/StudyStatus
+Content-Type: application/json
+
+{
+  "nombre": "Prueba"
+}
+
+###
+
+PUT http://localhost:5086/api/StudyStatus/5
+Content-Type: application/json
+
+{
+  "nombre": "Pruebaa"
+}
+
+###
+
+DELETE http://localhost:5086/api/StudyStatus/1
+
+###CRUD STUDYDETAILS
+
+GET http://localhost:5086/api/StudyDetail
+Accept: application/json
+
+###
+
+GET http://localhost:5086/api/StudyDetail/3
+Accept: application/json
+
+###
+
+POST http://localhost:5086/api/StudyDetail
+Content-Type: application/json
+
+{
+  "descripcion": "Prueba",
+  "fechaEntrega": "2026-10-15T19:00:00-06:00",
+  "studyId": 1,
+  "studyStatusId": 1
+}
+
+###
+
+PUT http://localhost:5086/api/StudyDetail/3
+Content-Type: application/json
+
+{
+  "descripcion": "pruebas",
+  "fechaEntrega": null,
+  "studyId": 2,
+  "studyStatusId": null
+}
+
+###
+
+DELETE http://localhost:5086/api/StudyDetail/3

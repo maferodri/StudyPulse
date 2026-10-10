@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudyPulse.Application.Interfaces;
 using StudyPulse.Infrastructure.Repositories;
@@ -17,6 +16,8 @@ public static class DependencyInjection {
         
         //La Inyección
         services.AddScoped<IStudyRepository, StudyRepository>();
+        services.AddScoped<IStudyDetailRepository, StudyDetailRepository>();
+        services.AddScoped<IStudyStatusRepository, StudyStatusRepository>();
         return services;
     }
     

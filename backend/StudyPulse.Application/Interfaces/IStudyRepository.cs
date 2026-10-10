@@ -10,4 +10,6 @@ public interface IStudyRepository
     Task<StudyGlobal?> GetByIdAsync(int id);
     Task<StudyGlobal> UpdateAsync(StudyGlobal study);
     Task DeleteAsync(StudyGlobal study);
+    //Ya que la validación se necesita datos de la BD, y el repositorio los consultara 
+    Task<bool> ExistsByNombreAsync(string nombre, int? excludeId = null);
 }

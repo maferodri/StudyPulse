@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudyPulse.Infrastructure.Data;
@@ -11,9 +12,11 @@ using StudyPulse.Infrastructure.Data;
 namespace StudyPulse.Infrastructure.Migrations
 {
     [DbContext(typeof(StudyPulseDbContext))]
-    partial class StudyPulseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261007190250_AddStudyDetailTable")]
+    partial class AddStudyDetailTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,23 +37,18 @@ namespace StudyPulse.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("FechaCreacion")
+                    b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTimeOffset>("FechaEntrega")
+                    b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("StudyId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StudyStatusId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("StudyId");
-
-                    b.HasIndex("StudyStatusId");
 
                     b.ToTable("StudyDetails");
                 });
@@ -72,23 +70,6 @@ namespace StudyPulse.Infrastructure.Migrations
                     b.ToTable("StudyGlobales");
                 });
 
-            modelBuilder.Entity("StudyPulse.Domain.Entities.StudyStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StudyStatuses");
-                });
-
             modelBuilder.Entity("StudyPulse.Domain.Entities.StudyDetail", b =>
                 {
                     b.HasOne("StudyPulse.Domain.Entities.StudyGlobal", "Study")
@@ -97,15 +78,7 @@ namespace StudyPulse.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudyPulse.Domain.Entities.StudyStatus", "StudyStatus")
-                        .WithMany()
-                        .HasForeignKey("StudyStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Study");
-
-                    b.Navigation("StudyStatus");
                 });
 #pragma warning restore 612, 618
         }

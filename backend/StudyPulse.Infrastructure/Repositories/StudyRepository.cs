@@ -42,5 +42,12 @@ public class StudyRepository: IStudyRepository {
         _context.StudyGlobales.Remove(study);
         return _context.SaveChangesAsync();
     }
+    
+    public async Task<bool> ExistsByNombreAsync(string nombre, int? excludeId = null)
+    {
+        var normalizado = nombre.Trim().ToLower();
+        return await _context.Set<StudyGlobal>().
+            AnyAsync(g => g.Nombre.ToLower() == normalizado && g.Id != excludeId);
+    }
 }
 

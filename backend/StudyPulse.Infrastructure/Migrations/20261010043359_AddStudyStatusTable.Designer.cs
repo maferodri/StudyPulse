@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudyPulse.Infrastructure.Data;
@@ -11,9 +12,11 @@ using StudyPulse.Infrastructure.Data;
 namespace StudyPulse.Infrastructure.Migrations
 {
     [DbContext(typeof(StudyPulseDbContext))]
-    partial class StudyPulseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261010043359_AddStudyStatusTable")]
+    partial class AddStudyStatusTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

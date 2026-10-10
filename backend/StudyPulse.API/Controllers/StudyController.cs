@@ -10,15 +10,18 @@ namespace StudyPulse.API.Controllers;
 [Route("api/[controller]")]
 public class StudyController: ControllerBase {
     private readonly IStudyRepository _repository;
+    private readonly IStudyDetailRepository _detailRepository;
     private readonly IValidator<CreateStudyRequestDto> _createValidator;
     private readonly IValidator<UpdateStudyRequestDto> _updateValidator;
     
     public StudyController(
         IStudyRepository repository, 
+        IStudyDetailRepository detailRepository,
         IValidator<CreateStudyRequestDto> createValidator,
         IValidator<UpdateStudyRequestDto> updateValidator)
     {
         _repository = repository;
+        _detailRepository = detailRepository;
         _createValidator = createValidator;
         _updateValidator =  updateValidator;
     }
@@ -102,6 +105,11 @@ public class StudyController: ControllerBase {
         {
             return NotFound(new { mensaje = $"No se encontró el estudio con el ID {id}" });
         }
+        
+        if (await _repository.ExistsByNombreAsync(request.Nombre, excludeId: id))
+        {
+            return Conflict(new { mensaje = "Ya existe un estudio con ese nombre." });
+        }
 
         if (studies.Nombre == request.Nombre)
         {
@@ -121,6 +129,11 @@ public class StudyController: ControllerBase {
         if (studies == null)
         {
             return NotFound(new { mensaje = $"No se encontró el estudio con el ID {id}" });
+        }
+        
+        if (await _detailRepository.ExistsByStudyIdAsync(id))
+        {
+            return Conflict(new { mensaje = "No se puede eliminar el estudio porque tiene tareas asociadas." });
         }
         
         await _repository.DeleteAsync(studies);
