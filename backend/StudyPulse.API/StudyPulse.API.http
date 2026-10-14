@@ -1,9 +1,9 @@
-#CRUD STUDYGLOBAL
+###GET STUDIES
 
 GET http://localhost:5086/api/Study
 Accept: application/json
 
-###
+###POST STUDIES
 
 POST http://localhost:5086/api/Study
 Content-Type: application/json
@@ -12,12 +12,12 @@ Content-Type: application/json
   "nombre": "Prueba"
 }
 
-###
+###GET BY ID STUDIES
 
 GET http://localhost:5086/api/Study/8
 Accept: application/json
 
-###
+###PUT STUDIES
 
 PUT http://localhost:5086/api/Study/9
 Content-Type: application/json
@@ -26,21 +26,21 @@ Content-Type: application/json
   "nombre": "Prueba con PUt"
 }
 
-###
+###DELETE STUDIES
 
 DELETE http://localhost:5086/api/Study/1
 
-###CRUD STUDYSTATUS
+###GET STATUS
 
 GET http://localhost:5086/api/StudyStatus
 Accept: application/json
 
-###
+###GET STATUS BY ID
 
 GET http://localhost:5086/api/StudyStatus/2
 Accept: application/json
 
-###
+###POST STATUS
 
 POST http://localhost:5086/api/StudyStatus
 Content-Type: application/json
@@ -49,7 +49,7 @@ Content-Type: application/json
   "nombre": "Prueba"
 }
 
-###
+###PUT STATUS
 
 PUT http://localhost:5086/api/StudyStatus/5
 Content-Type: application/json
@@ -58,21 +58,21 @@ Content-Type: application/json
   "nombre": "Pruebaa"
 }
 
-###
+###DELETE STATUS
 
 DELETE http://localhost:5086/api/StudyStatus/1
 
-###CRUD STUDYDETAILS
+###GET DETAILS
 
 GET http://localhost:5086/api/StudyDetail
 Accept: application/json
 
-###
+###GET DETAILS BY ID
 
 GET http://localhost:5086/api/StudyDetail/3
 Accept: application/json
 
-###
+###POST DETAILS
 
 POST http://localhost:5086/api/StudyDetail
 Content-Type: application/json
@@ -84,7 +84,7 @@ Content-Type: application/json
   "studyStatusId": 1
 }
 
-###
+###PUT DETAILS
 
 PUT http://localhost:5086/api/StudyDetail/3
 Content-Type: application/json
@@ -96,6 +96,6 @@ Content-Type: application/json
   "studyStatusId": null
 }
 
-###
+###DELETE DETAILS
 
 DELETE http://localhost:5086/api/StudyDetail/3
