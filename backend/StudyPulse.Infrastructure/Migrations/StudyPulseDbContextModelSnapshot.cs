@@ -22,40 +22,7 @@ namespace StudyPulse.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StudyPulse.Domain.Entities.StudyDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("FechaCreacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset>("FechaEntrega")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("StudyId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StudyStatusId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudyId");
-
-                    b.HasIndex("StudyStatusId");
-
-                    b.ToTable("StudyDetails");
-                });
-
-            modelBuilder.Entity("StudyPulse.Domain.Entities.StudyGlobal", b =>
+            modelBuilder.Entity("StudyPulse.Domain.Entities.Activity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +36,7 @@ namespace StudyPulse.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudyGlobales");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("StudyPulse.Domain.Entities.StudyStatus", b =>
@@ -89,11 +56,44 @@ namespace StudyPulse.Infrastructure.Migrations
                     b.ToTable("StudyStatuses");
                 });
 
-            modelBuilder.Entity("StudyPulse.Domain.Entities.StudyDetail", b =>
+            modelBuilder.Entity("StudyPulse.Domain.Entities.Task", b =>
                 {
-                    b.HasOne("StudyPulse.Domain.Entities.StudyGlobal", "Study")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("FechaCreacion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("FechaEntrega")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("StudyStatusId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("StudyStatusId");
+
+                    b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("StudyPulse.Domain.Entities.Task", b =>
+                {
+                    b.HasOne("StudyPulse.Domain.Entities.Activity", "Activity")
                         .WithMany()
-                        .HasForeignKey("StudyId")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -103,7 +103,7 @@ namespace StudyPulse.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Study");
+                    b.Navigation("Activity");
 
                     b.Navigation("StudyStatus");
                 });

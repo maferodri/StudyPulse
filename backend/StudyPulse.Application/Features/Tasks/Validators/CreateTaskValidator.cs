@@ -1,12 +1,12 @@
 using FluentValidation;
-using StudyPulse.Application.Features.Studies.DTOs;
+using StudyPulse.Application.Features.Tasks.DTOs;
 using StudyPulse.Application.Interfaces;
 
-namespace StudyPulse.Application.Features.Studies.Validators;
+namespace StudyPulse.Application.Features.Tasks.Validators;
 
-public class CreateStudyDetailValidator: AbstractValidator<CreateStudyDetailRequestDto>
+public class CreateTaskValidator: AbstractValidator<CreateTaskRequestDto>
 {
-    public CreateStudyDetailValidator(IStudyStatusRepository studyStatusRepository, IStudyRepository studyRepository)
+    public CreateTaskValidator(IStudyStatusRepository studyStatusRepository, IActivityRepository activityRepository)
     {
         RuleFor(s => s.Descripcion)
             .NotEmpty().WithMessage("Descripcion no puede estar vacio")
@@ -19,7 +19,7 @@ public class CreateStudyDetailValidator: AbstractValidator<CreateStudyDetailRequ
         
         RuleFor(s => s.StudyId)
             .GreaterThan(0).WithMessage("Debe seleccionar una actividad válido.")
-            .MustAsync(async (id, ct) => await studyRepository.GetByIdAsync(id) != null)
+            .MustAsync(async (id, ct) => await activityRepository.GetByIdAsync(id) != null)
             .WithMessage("No existe una actividad con ese ID.");
         
         RuleFor(s => s.StudyStatusId)

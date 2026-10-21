@@ -15,8 +15,8 @@ public static class DependencyInjection {
             options.UseNpgsql(connectionString));
         
         //La Inyección
-        services.AddScoped<IStudyRepository, StudyRepository>();
-        services.AddScoped<IStudyDetailRepository, StudyDetailRepository>();
+        services.AddScoped<IActivityRepository, ActivityRepository>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
         services.AddScoped<IStudyStatusRepository, StudyStatusRepository>();
         return services;
     }

@@ -1,6 +1,6 @@
-namespace StudyPulse.Application.Features.Studies.DTOs;
+namespace StudyPulse.Application.Features.Activities.DTOs;
 
-public class StudyResponseDto
+public class ActivityResponseDto
 {
     public int Id { get; set; }
     public string Nombre { get; set; } =  string.Empty;

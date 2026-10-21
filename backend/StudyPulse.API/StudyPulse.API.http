@@ -1,9 +1,9 @@
-###GET STUDIES
+###GET ACTIVITY
 
 GET http://localhost:5086/api/Study
 Accept: application/json
 
-###POST STUDIES
+###POST ACTIVITY
 
 
 Content-Type: application/json
@@ -12,12 +12,12 @@ Content-Type: application/json
   "nombre": "Prueba"
 }
 
-###GET BY ID STUDIES
+###GET BY ID ACTIVITY
 
 GET http://localhost:5086/api/Study/8
 Accept: application/json
 
-###PUT STUDIES
+###PUT ACTIVITY
 
 PUT http://localhost:5086/api/Study/9
 Content-Type: application/json
@@ -26,7 +26,7 @@ Content-Type: application/json
   "nombre": "Prueba con PUt"
 }
 
-###DELETE STUDIES
+###DELETE ACTIVITY
 
 DELETE http://localhost:5086/api/Study/1
 
@@ -62,17 +62,17 @@ Content-Type: application/json
 
 DELETE http://localhost:5086/api/StudyStatus/1
 
-###GET DETAILS
+###GET TASK
 
 GET http://localhost:5086/api/StudyDetail
 Accept: application/json
 
-###GET DETAILS BY ID
+###GET TASK BY ID
 
 GET http://localhost:5086/api/StudyDetail/3
 Accept: application/json
 
-###POST DETAILS
+###POST TASK
 
 POST http://localhost:5086/api/StudyDetail
 Content-Type: application/json
@@ -84,7 +84,7 @@ Content-Type: application/json
   "studyStatusId": 1
 }
 
-###PUT DETAILS
+###PUT TASK
 
 PUT http://localhost:5086/api/StudyDetail/3
 Content-Type: application/json
@@ -96,6 +96,6 @@ Content-Type: application/json
   "studyStatusId": null
 }
 
-###DELETE DETAILS
+###DELETE TASK
 
 DELETE http://localhost:5086/api/StudyDetail/3

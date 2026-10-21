@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StudyPulse.Domain.Entities;
 using StudyPulse.Application.Interfaces;
 using StudyPulse.Infrastructure.Data;
+using Task = System.Threading.Tasks.Task;
 
 namespace StudyPulse.Infrastructure.Repositories;
 

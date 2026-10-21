@@ -1,4 +1,5 @@
 using StudyPulse.Domain.Entities;
+using Task = System.Threading.Tasks.Task;
 
 namespace StudyPulse.Application.Interfaces;
 

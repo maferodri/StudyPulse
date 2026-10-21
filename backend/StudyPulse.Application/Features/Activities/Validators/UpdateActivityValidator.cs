@@ -1,11 +1,11 @@
 using FluentValidation;
-using StudyPulse.Application.Features.Studies.DTOs;
+using StudyPulse.Application.Features.Activities.DTOs;
 
-namespace StudyPulse.Application.Features.Studies.Validators;
+namespace StudyPulse.Application.Features.Activities.Validators;
 
-public class UpdateStudyValidator: AbstractValidator<UpdateStudyRequestDto>
+public class UpdateActivityValidator: AbstractValidator<UpdateActivityRequestDto>
 {
-    public UpdateStudyValidator()
+    public UpdateActivityValidator()
     {
         RuleFor(x => x.Nombre)
             .NotEmpty().WithMessage("El nombre de la actividad no puede estar vacio.")

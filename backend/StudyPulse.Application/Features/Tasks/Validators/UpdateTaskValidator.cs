@@ -1,12 +1,12 @@
 using FluentValidation;
-using StudyPulse.Application.Features.Studies.DTOs;
+using StudyPulse.Application.Features.Tasks.DTOs;
 using StudyPulse.Application.Interfaces;
 
-namespace StudyPulse.Application.Features.Studies.Validators;
+namespace StudyPulse.Application.Features.Tasks.Validators;
 
-public class UpdateStudyDetailValidator: AbstractValidator<UpdateStudyDetailRequestDto>
+public class UpdateTaskValidator: AbstractValidator<UpdateTaskRequestDto>
 {
-    public  UpdateStudyDetailValidator(IStudyRepository studyRepository, IStudyStatusRepository studyStatusRepository)
+    public  UpdateTaskValidator(IActivityRepository activityRepository, IStudyStatusRepository studyStatusRepository)
     {
         RuleFor(s => s.Descripcion)
             .Must(d => !string.IsNullOrWhiteSpace(d)).WithMessage("La descripción no puede estar vacía")
@@ -19,11 +19,11 @@ public class UpdateStudyDetailValidator: AbstractValidator<UpdateStudyDetailRequ
             .WithMessage("La fecha de entrega debe ser en el futuro")
             .When(s => s.FechaEntrega.HasValue);
 
-        RuleFor(s => s.StudyId)
+        RuleFor(s => s.ActivityId)
             .GreaterThan(0).WithMessage("Debe seleccionar una actividad válida.")
-            .MustAsync(async (id, ct) => await studyRepository.GetByIdAsync(id!.Value) != null)
+            .MustAsync(async (id, ct) => await activityRepository.GetByIdAsync(id!.Value) != null)
             .WithMessage("No existe una actividad con ese ID.")
-            .When(s => s.StudyId.HasValue);
+            .When(s => s.ActivityId.HasValue);
 
         RuleFor(s => s.StudyStatusId)
             .GreaterThan(0).WithMessage("Debe seleccionar un estado válido.")

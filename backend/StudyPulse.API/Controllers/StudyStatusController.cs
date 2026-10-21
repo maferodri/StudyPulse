@@ -12,13 +12,13 @@ namespace StudyPulse.API.Controllers;
 public class StudyStatusController: Controller
 {
     private readonly IStudyStatusRepository _repository;
-    private readonly IStudyDetailRepository _detailRepository;
+    private readonly ITaskRepository _detailRepository;
     private readonly IValidator<CreateStudyStatusRequestDto> _createValidator;
     private readonly IValidator<UpdateStudyStatusRequestDto> _updateValidator;
 
     public StudyStatusController(
         IStudyStatusRepository repository,
-        IStudyDetailRepository detailRepository,
+        ITaskRepository detailRepository,
         IValidator<CreateStudyStatusRequestDto> createValidator,
         IValidator<UpdateStudyStatusRequestDto> updateValidator)
     {
