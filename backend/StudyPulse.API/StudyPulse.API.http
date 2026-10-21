@@ -5,7 +5,7 @@ Accept: application/json
 
 ###POST STUDIES
 
-POST http://localhost:5086/api/Study
+
 Content-Type: application/json
 
 {

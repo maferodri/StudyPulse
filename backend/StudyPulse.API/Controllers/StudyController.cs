@@ -86,8 +86,6 @@ public class StudyController: ControllerBase {
             Id = studyCreado.Id,
             Nombre = studyCreado.Nombre
         };
-        
-        // CORRECCIÓN 2: Pasas 'response' como el objeto que se devolverá al cliente
         return CreatedAtAction(nameof(GetStudies), new { id = studyCreado.Id }, response);
     }
 
