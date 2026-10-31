@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudyPulse.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bcb3345fe94475f061b7034d8264377be4295c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a40a1f2ac97e3ab86631aa7e55bfe0c0e5c9656")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudyPulse.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudyPulse.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
