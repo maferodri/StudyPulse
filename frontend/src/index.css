@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* MARCA (escala morada, de tu paleta) */
+  --color-brand-50:  #F3EDFC;  /* fondos suaves */
+  --color-brand-100: #E0D5F6;  /* avatares, chips */
+  --color-brand-200: #D3CCF2;  /* texto claro sobre fondo oscuro */
+  --color-brand-400: #8F89CC;  /* bordes en hover */
+  --color-brand-600: #615AA8;  /* botones, logo, acentos */
+  --color-brand-700: #4B4590;  /* hover de botones */
+  --color-brand-950: #171137;  /* sidebar y header móvil */
+
+  /* SUPERFICIES */
+  --color-canvas:  #EDF0FB;    /* fondo de la app */
+  --color-surface: #FFFFFF;    /* tarjetas e inputs */
+  --color-line:    #E2DDF3;    /* bordes */
+  --color-sidebar: #6761AC;   /* sidebar y header móvil */
+
+  /* TEXTO */
+  --color-ink:        #171137; /* títulos y texto principal */
+  --color-ink-muted:  #5B5780; /* subtítulos y descripciones */
+  --color-ink-subtle: #8A87A8; /* placeholders e IDs */
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
