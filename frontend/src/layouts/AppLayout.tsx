@@ -3,7 +3,9 @@ import { BookOpen, ListChecks, TrendingUp } from 'lucide-react'
 import { getActivitiesAsync } from '../features/activities/api/activitiesApi'
 
 interface AppLayoutProps {
-  children: ReactNode // Representa la vista que se inyectará en el área de trabajo central
+  // Representa la vista que se inyectará en el área de trabajo central
+  // ReactNode es cualquiera cosa que React pueda dibujar
+  children: ReactNode
 }
 
 const menu = [
@@ -18,10 +20,12 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   useEffect(() => {
     let isMounted = true
-    getActivitiesAsync().then((data) => {
-      if (isMounted) setTotalActivities(data.length)
+    getActivitiesAsync() //Devuelve una promesa
+      .then((data) => { //Se ejecuta cuando la promesa se resuelve
+        if (isMounted) //Solo actualiza si el componente sigue f=viva
+          setTotalActivities(data.length) //Guarda el número de activos
     })
-    return () => {
+    return () => { //Función de limpieza
       isMounted = false
     }
   }, [])
