@@ -34,7 +34,7 @@ public class TaskController: ControllerBase
             FechaCreacion = h.FechaCreacion,
             FechaEntrega = h.FechaEntrega,
             StudyNombre = h.Activity.Nombre,
-            StudyStatusNombre =  h.StudyStatus.Nombre
+            TaskStatusNombre =  h.TaskStatus.Nombre
         });
         
         return Ok(response);
@@ -57,7 +57,7 @@ public class TaskController: ControllerBase
             FechaCreacion = tasks.FechaCreacion,
             FechaEntrega = tasks.FechaEntrega,
             StudyNombre = tasks.Activity.Nombre,
-            StudyStatusNombre = tasks.StudyStatus.Nombre
+            TaskStatusNombre = tasks.TaskStatus.Nombre
         };
         
         return Ok(response);
@@ -77,7 +77,7 @@ public class TaskController: ControllerBase
             Descripcion = request.Descripcion,
             FechaEntrega = request.FechaEntrega,
             ActivityId = request.StudyId,
-            StudyStatusId =  request.StudyStatusId
+            TaskStatusId =  request.StudyStatusId
         };
 
         var taskCreated = await _repository.AddAsync(newTask);
@@ -89,7 +89,7 @@ public class TaskController: ControllerBase
             FechaCreacion = taskCreated.FechaCreacion,
             FechaEntrega = request.FechaEntrega.ToUniversalTime(),
             StudyNombre = taskCreated.Activity.Nombre,
-            StudyStatusNombre = taskCreated.StudyStatus.Nombre
+            TaskStatusNombre = taskCreated.TaskStatus.Nombre
         };
         
         return CreatedAtAction(nameof(GetTaskById), new { id = response.Id }, response);

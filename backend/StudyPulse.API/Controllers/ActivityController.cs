@@ -129,7 +129,7 @@ public class ActivityController: ControllerBase {
             return NotFound(new { mensaje = $"No se encontró la actividad con el ID {id}" });
         }
         
-        if (await _detailRepository.ExistsByStudyIdAsync(id))
+        if (await _detailRepository.ExistsByTaskIdAsync(id))
         {
             return Conflict(new { mensaje = "No se puede eliminar la actividad porque tiene tareas asociadas." });
         }

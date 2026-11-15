@@ -4,9 +4,9 @@ using StudyPulse.Application.Interfaces;
 
 namespace StudyPulse.Application.Features.Studies.Validators;
 
-public class CreateStudyStatusValidator: AbstractValidator<CreateStudyStatusRequestDto>
+public class CreateTaskStatusValidator: AbstractValidator<CreateTaskStatusRequestDto>
 {
-    public CreateStudyStatusValidator(IStudyStatusRepository studyStatusRepository)
+    public CreateTaskStatusValidator(ITaskStatusRepository studyStatusRepository)
     {
         RuleFor(x => x.Nombre)
             .NotEmpty().WithMessage("El estado no puede estar vacio")

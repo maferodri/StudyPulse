@@ -3,24 +3,25 @@ using Microsoft.AspNetCore.Mvc;
 using StudyPulse.Application.Interfaces;
 using StudyPulse.Domain.Entities;
 using StudyPulse.Application.Features.Studies.DTOs;
+using TaskStatus = StudyPulse.Domain.Entities.TaskStatus;
 
 namespace StudyPulse.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 
-public class StudyStatusController: Controller
+public class TaskStatusController: Controller
 {
-    private readonly IStudyStatusRepository _repository;
+    private readonly ITaskStatusRepository _repository;
     private readonly ITaskRepository _detailRepository;
-    private readonly IValidator<CreateStudyStatusRequestDto> _createValidator;
-    private readonly IValidator<UpdateStudyStatusRequestDto> _updateValidator;
+    private readonly IValidator<CreateTaskStatusRequestDto> _createValidator;
+    private readonly IValidator<UpdateTaskStatusRequestDto> _updateValidator;
 
-    public StudyStatusController(
-        IStudyStatusRepository repository,
+    public TaskStatusController(
+        ITaskStatusRepository repository,
         ITaskRepository detailRepository,
-        IValidator<CreateStudyStatusRequestDto> createValidator,
-        IValidator<UpdateStudyStatusRequestDto> updateValidator)
+        IValidator<CreateTaskStatusRequestDto> createValidator,
+        IValidator<UpdateTaskStatusRequestDto> updateValidator)
     {
         _repository = repository;
         _detailRepository = detailRepository;
@@ -29,11 +30,11 @@ public class StudyStatusController: Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetStudiesStatus()
+    public async Task<IActionResult> GetTasksStatus()
     {
-        var studiesStatus = await _repository.GetAllAsync();
+        var tasksStatus = await _repository.GetAllAsync();
 
-        var response = studiesStatus.Select(s => new StudyStatusResponseDto
+        var response = tasksStatus.Select(s => new TaskStatusResponseDto
         {
             Id = s.Id,
             Nombre = s.Nombre
@@ -43,26 +44,26 @@ public class StudyStatusController: Controller
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetStudiesStatusById(int id)
+    public async Task<IActionResult> GetTasksStatusById(int id)
     {
-        var studiesStatus = await _repository.GetByIdAsync(id);
+        var tasksStatus = await _repository.GetByIdAsync(id);
 
-        if (studiesStatus == null)
+        if (tasksStatus == null)
         {
             return NotFound(new {mensaje = $"No se encontró el estado con el ID {id}"});
         }
 
-        var response = new StudyStatusResponseDto
+        var response = new TaskStatusResponseDto
         {
-            Id = studiesStatus.Id,
-            Nombre = studiesStatus.Nombre
+            Id = tasksStatus.Id,
+            Nombre = tasksStatus.Nombre
         };
         
         return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateStudyStatus([FromBody] CreateStudyStatusRequestDto request)
+    public async Task<IActionResult> CreateTaskStatus([FromBody] CreateTaskStatusRequestDto request)
     {
         var validationResult = await _createValidator.ValidateAsync(request);
         if (!validationResult.IsValid)
@@ -70,24 +71,24 @@ public class StudyStatusController: Controller
             return BadRequest(validationResult.Errors);
         }
 
-        var nuevoStudyStatus = new StudyStatus
+        var nuevoTaskStatus = new TaskStatus
         {
             Nombre = request.Nombre
         };
 
-        var studyStatusCreado = await _repository.AddAsync(nuevoStudyStatus);
+        var taskStatusCreado = await _repository.AddAsync(nuevoTaskStatus);
 
-        var response = new StudyStatusResponseDto
+        var response = new TaskStatusResponseDto
         {
-            Id = studyStatusCreado.Id,
-            Nombre = studyStatusCreado.Nombre
+            Id = taskStatusCreado.Id,
+            Nombre = taskStatusCreado.Nombre
         };
         
-        return CreatedAtAction(nameof(GetStudiesStatusById), new { id = studyStatusCreado.Id }, response);
+        return CreatedAtAction(nameof(GetTasksStatusById), new { id = taskStatusCreado.Id }, response);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateStudyStatus(int id, [FromBody] UpdateStudyStatusRequestDto request)
+    public async Task<IActionResult> UpdateTaskStatus(int id, [FromBody] UpdateTaskStatusRequestDto request)
     {
         var validationResult = await _updateValidator.ValidateAsync(request);
         if (!validationResult.IsValid)
@@ -95,8 +96,8 @@ public class StudyStatusController: Controller
             return BadRequest(validationResult.Errors);
         }
 
-        var studiesStatus = await _repository.GetByIdAsync(id);
-        if (studiesStatus == null)
+        var tasksStatus = await _repository.GetByIdAsync(id);
+        if (tasksStatus == null)
         {
             return NotFound(new { mensaje = $"No se encontro el estado con el ID {id}" });
         }
@@ -106,32 +107,32 @@ public class StudyStatusController: Controller
             return Conflict(new { mensaje = "Ya existe un estado con ese nombre." });
         }
 
-        if (studiesStatus.Nombre == request.Nombre)
+        if (tasksStatus.Nombre == request.Nombre)
         {
             return BadRequest(new {mensaje = "El nuevo nombre del estado no puede ser idéntico al nombre actual"});
         }
         
-        studiesStatus.Nombre = request.Nombre;
+        tasksStatus.Nombre = request.Nombre;
         
-        await _repository.UpdateAsync(studiesStatus);
+        await _repository.UpdateAsync(tasksStatus);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteStudyStatus(int id)
+    public async Task<IActionResult> DeleteTaskStatus(int id)
     {
-        var studiesStatus = await _repository.GetByIdAsync(id);
-        if (studiesStatus == null)
+        var tasksStatus = await _repository.GetByIdAsync(id);
+        if (tasksStatus == null)
         {
             return NotFound(new { mensaje = $"No se encontró el estado con el ID {id}" });
         }
 
-        if (await _detailRepository.ExistsByStudyStatusIdAsync(id))
+        if (await _detailRepository.ExistsByTaskStatusIdAsync(id))
         {
             return Conflict(new { mensaje = "No se puede eliminar el estado porque tiene tareas asociadas." });
         }
         
-        await _repository.DeleteAsync(studiesStatus);
+        await _repository.DeleteAsync(tasksStatus);
         return NoContent();
     }
 }

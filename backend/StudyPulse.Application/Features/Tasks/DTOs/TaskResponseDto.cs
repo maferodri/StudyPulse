@@ -7,5 +7,5 @@ public class TaskResponseDto
     public DateTimeOffset FechaCreacion { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset FechaEntrega { get; set; }
     public string StudyNombre { get; set; } = string.Empty; 
-    public string StudyStatusNombre { get; set; } = string.Empty;
+    public string TaskStatusNombre { get; set; } = string.Empty;
 }

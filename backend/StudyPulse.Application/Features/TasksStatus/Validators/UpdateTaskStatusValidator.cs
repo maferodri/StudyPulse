@@ -3,9 +3,9 @@ using StudyPulse.Application.Features.Studies.DTOs;
 
 namespace StudyPulse.Application.Features.Studies.Validators;
 
-public class UpdateStudyStatusValidator: AbstractValidator<UpdateStudyStatusRequestDto>
+public class UpdateTaskStatusValidator: AbstractValidator<UpdateTaskStatusRequestDto>
 {
-    public UpdateStudyStatusValidator()
+    public UpdateTaskStatusValidator()
     {
         RuleFor(x => x.Nombre)
             .NotEmpty().WithMessage("El estado no puede estar vacio")
