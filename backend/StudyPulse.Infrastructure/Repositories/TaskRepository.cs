@@ -19,7 +19,7 @@ public class TaskRepository: ITaskRepository
     {
         return await _context.Set<Task>()
             .Include( sd => sd.Activity)
-            .Include(sd => sd.StudyStatus)
+            .Include(sd => sd.TaskStatus)
             .ToListAsync();
     }
 
@@ -27,7 +27,7 @@ public class TaskRepository: ITaskRepository
     {
         return await _context.Tasks
             .Include(sd => sd.Activity)
-            .Include(sd => sd.StudyStatus)
+            .Include(sd => sd.TaskStatus)
             .FirstOrDefaultAsync(sd => sd.Id == id);
     }
 
@@ -40,7 +40,7 @@ public class TaskRepository: ITaskRepository
         await _context.SaveChangesAsync();
         
         await _context.Entry(task).Reference(sd => sd.Activity).LoadAsync();
-        await _context.Entry(task).Reference(sd => sd.StudyStatus).LoadAsync();
+        await _context.Entry(task).Reference(sd => sd.TaskStatus).LoadAsync();
         
         return task;
     }
@@ -58,13 +58,13 @@ public class TaskRepository: ITaskRepository
         return _context.SaveChangesAsync();
     }
     
-    public async Task<bool> ExistsByStudyIdAsync(int activityId)
+    public async Task<bool> ExistsByTaskIdAsync(int activityId)
     {
         return await _context.Tasks.AnyAsync(d => d.ActivityId == activityId);
     }
 
-    public async Task<bool> ExistsByStudyStatusIdAsync(int studyStatusId)
+    public async Task<bool> ExistsByTaskStatusIdAsync(int taskStatusId)
     {
-        return await _context.Tasks.AnyAsync(d => d.StudyStatusId == studyStatusId);
+        return await _context.Tasks.AnyAsync(d => d.TaskStatusId == taskStatusId);
     }
 }

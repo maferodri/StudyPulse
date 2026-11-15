@@ -13,12 +13,11 @@ public static class DependencyInjection {
         //Configuramos el acceso a postgres
         services.AddDbContext<StudyPulseDbContext>(options =>
             options.UseNpgsql(connectionString));
-        
+
         //La Inyección
         services.AddScoped<IActivityRepository, ActivityRepository>();
         services.AddScoped<ITaskRepository, TaskRepository>();
-        services.AddScoped<IStudyStatusRepository, StudyStatusRepository>();
+        services.AddScoped<ITaskStatusRepository, TaskStatusRepository>();
         return services;
     }
-    
 }

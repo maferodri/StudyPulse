@@ -11,6 +11,7 @@ export function ActivityCatalogView() {
   const [loading, setLoading] = useState<boolean>(true)
   const [networkError, setNetworkError] = useState<string | null>(null)
   const [search, setSearch] = useState<string>('')
+  const [sortAsc, setSortAsc] = useState<boolean>(true)
   // Controla la visibilidad del formulario de creación (POST)
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
   // Guarda la actividad en edición (PUT). null = formulario cerrado
@@ -45,6 +46,7 @@ export function ActivityCatalogView() {
   // PUT: reemplaza la tarjeta manteniendo el orden de la lista
   const handleActivityUpdated = (updatedActivity: Activity) => {
     setActivities((currentActivities) =>
+      //Map para no perder el orden y solo coincide en id
       currentActivities.map((activity) =>
         activity.id === updatedActivity.id ? updatedActivity : activity
       )
@@ -89,6 +91,12 @@ export function ActivityCatalogView() {
     (activity.nombre ?? '')
       .toLowerCase()
       .includes(search.toLowerCase())
+  )
+
+  const visibleActivities = [...filteredActivities].sort((a, b) =>
+    sortAsc
+      ? a.nombre.localeCompare(b.nombre)
+      : b.nombre.localeCompare(a.nombre)
   )
 
   // --- ZONA 4: RENDERIZADO EXCLUSIVO DEL CATÁLOGO ---
@@ -144,7 +152,7 @@ export function ActivityCatalogView() {
         </div>
       )}
 
-      {/* Buscador Reactivo */}
+      {/* Buscador Reactivo + orden */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <input
           type="text"
@@ -153,10 +161,23 @@ export function ActivityCatalogView() {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full sm:max-w-md bg-surface border border-line rounded-lg px-4 py-2.5 text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20 transition"
         />
-        <span className="text-xs text-ink-muted">
-          Mostrando <strong className="text-brand-600">{filteredActivities.length}</strong> de{' '}
-          {activities.length} actividades
-        </span>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setSortAsc((current) => !current)}
+            title="Cambiar el orden alfabético"
+            className="inline-flex items-center gap-2 border border-line bg-surface text-ink-muted hover:text-brand-600 hover:border-brand-400 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointe"
+          >
+            {sortAsc ? 'A -> Z' : 'Z -> A'}
+          </button>
+
+          <span className="text-xs text-ink-muted">
+            Mostrando <strong className="text-brand-600">{visibleActivities.length}</strong> de{' '}
+            {activities.length} actividades
+          </span>
+
+        </div>
       </div>
 
     {/* 1. Estado de Carga */}
@@ -190,7 +211,7 @@ export function ActivityCatalogView() {
 
       {!loading && !networkError && filteredActivities.length > 0 && (
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredActivities.map((activity) => (
+          {visibleActivities.map((activity) => (
             <ActivityCard
               key={activity.id}
               id={activity.id}

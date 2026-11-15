@@ -6,7 +6,7 @@ namespace StudyPulse.Application.Features.Tasks.Validators;
 
 public class UpdateTaskValidator: AbstractValidator<UpdateTaskRequestDto>
 {
-    public  UpdateTaskValidator(IActivityRepository activityRepository, IStudyStatusRepository studyStatusRepository)
+    public  UpdateTaskValidator(IActivityRepository activityRepository, ITaskStatusRepository studyStatusRepository)
     {
         RuleFor(s => s.Descripcion)
             .Must(d => !string.IsNullOrWhiteSpace(d)).WithMessage("La descripción no puede estar vacía")

@@ -11,6 +11,6 @@ public interface ITaskRepository
     Task <Task> UpdateAsync(Task task);
     System.Threading.Tasks.Task DeleteAsync(Task task);
     
-    Task<bool> ExistsByStudyIdAsync(int activityId);
-    Task<bool> ExistsByStudyStatusIdAsync(int studyStatusId);
+    Task<bool> ExistsByTaskIdAsync(int activityId);
+    Task<bool> ExistsByTaskStatusIdAsync(int studyStatusId);
 }
