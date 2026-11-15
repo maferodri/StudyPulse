@@ -3,6 +3,7 @@ import type { Activity } from '../types/activity.types'
 
 interface ActivityCardProps extends Activity {
   isDeleting: boolean
+  //reciben una activity y no devuelven nada
   onEdit: (activity: Activity) => void
   onDelete: (activity: Activity) => void
 }

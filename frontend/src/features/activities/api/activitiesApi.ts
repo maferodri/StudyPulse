@@ -7,6 +7,7 @@ if (!API_BASE_URL) {
   console.error('ERROR CRÍTICO: No se detectó VITE_API_BASE_URL en frontend/.env')
 }
 
+//Crea una instancia configurada que todas las funciones reutilizan
 export const apiClient = axios.create({
     baseURL: API_BASE_URL,
     headers: {
